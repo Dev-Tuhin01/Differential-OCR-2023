@@ -1,0 +1,14 @@
+.ImageLoader {
+  display: flex;
+  gap: 10px;
+  padding: 2px;
+  width: 100%;
+  font-size: 1.5rem;
+  align-items: center;
+}
+
+image {
+  margin: 10px;
+  height: 100px;
+  width: 100px;
+}
