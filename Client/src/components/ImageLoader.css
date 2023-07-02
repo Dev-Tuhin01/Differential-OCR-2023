@@ -7,8 +7,8 @@
   align-items: center;
 }
 
-image {
+img {
   margin: 10px;
-  height: 100px;
-  width: 100px;
+  max-height: 550px;
+  max-width: 750px;
 }

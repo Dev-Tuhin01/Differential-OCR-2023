@@ -1,9 +1,10 @@
 import "./ImageLoader.css";
-import React, { FormEventHandler, useState } from "react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 import axios from "axios";
 
 function ImageLoader() {
-  const [image, setImage] = useState<file | null>();
+  const [image, setImage] = useState<File | undefined>();
+  const [img, setImg] = useState<string>("");
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -11,12 +12,24 @@ function ImageLoader() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e?.target?.files != null) {
-      setImage(e.target.files[0]);
-      console.log(image);
+      console.log(e.target.files[0]);
+      const selectedImage = e.target.files[0];
+      setImage(selectedImage);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImg(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
     } else {
       console.error("insert a file");
     }
   };
+
+  useEffect(() => {
+    if (image) {
+      console.log(image);
+    }
+  }, [image]);
 
   return (
     <div className="ImageLoader">
@@ -32,7 +45,7 @@ function ImageLoader() {
           check for math token
         </button>
       </form>
-      <img src={image && image} alt="preview image" />
+      <img src={img && img} alt="preview image" />
     </div>
   );
 }
