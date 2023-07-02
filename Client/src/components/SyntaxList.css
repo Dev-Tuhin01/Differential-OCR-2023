@@ -1,0 +1,12 @@
+#SyntaxList {
+  background: rgba(0, 0, 0, 0.4);
+  text-align: left;
+  color: white;
+  width: 40%;
+}
+
+ul,
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
