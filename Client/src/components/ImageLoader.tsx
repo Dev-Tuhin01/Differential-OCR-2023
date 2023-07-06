@@ -1,16 +1,25 @@
 import "./ImageLoader.css";
-import React, { FormEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function ImageLoader() {
-  const [image, setImage] = useState<File | undefined>();
-  const [img, setImg] = useState<string>("");
+  const [image, setImage] = useState<File>(); //This state hool handles the file which will be send to the backend
+  const [img, setImg] = useState<string>(""); // This state hook handles the name of the image. it will be used to display the target image
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", image as File);
+
+    const result = await axios.post("/OCR", formData, {
+      headers: { "content-Type": "mutlipart/formData" },
+    });
+    console.log(result.data);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //this function will be executed when a image is selected
     if (e?.target?.files != null) {
       console.log(e.target.files[0]);
       const selectedImage = e.target.files[0];
@@ -41,7 +50,7 @@ function ImageLoader() {
           id="imageInput"
           onChange={handleChange}
         ></input>
-        <button type="submit" id="submit">
+        <button type="submit" id="submit" disabled={!image}>
           check for math token
         </button>
       </form>
