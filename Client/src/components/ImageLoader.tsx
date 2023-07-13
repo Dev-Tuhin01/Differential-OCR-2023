@@ -12,10 +12,10 @@ function ImageLoader() {
     const formData = new FormData();
     formData.append("image", image as File);
 
-    const result = await axios.post("/OCR", formData, {
+    const result = await axios.post("http://localhost:3000/OCR", formData, {
       headers: { "content-Type": "mutlipart/formData" },
     });
-    console.log(result.data);
+    // console.log(result.data);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
