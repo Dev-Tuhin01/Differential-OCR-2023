@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import multer from "multer";
 import cors from "cors";
+import tokenizeLatex from "./functions/segment";
 
 dotenv.config();
 
@@ -42,6 +43,11 @@ app.all("/", (req: Request, res: Response, next) => {
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello world");
+
+  // Example usage:
+  const latexString = "\\frac{d}{d x}\\left(x^n\\right)=n x^{n-1}";
+  const tokens = tokenizeLatex(latexString);
+  console.log(tokens);
 });
 
 app.get("/OCR", (req: Request, res: Response) => {
